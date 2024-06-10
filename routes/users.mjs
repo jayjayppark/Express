@@ -3,6 +3,7 @@ import express from "express";
 import User from "../schemas/users.mjs";
 import authMiddleware from "../middlewares/auth-middleware.mjs";
 import config from "../config/index.mjs";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 
@@ -13,11 +14,16 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ nickname });
 
     // NOTE: 인증 메세지는 자세히 설명하지 않는것을 원칙으로 한다.
-    if (!user || password !== user.password) {
+    if (!user) {
         res.status(400).json({
             errorMessage: "닉네임 또는 패스워드가 틀렸습니다.",
         });
         return;
+    }
+    // 비밀번호 검증
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).send('Invalid credentials');
     }
 
     const token = jwt.sign(
@@ -80,11 +86,17 @@ router.post("/register", async (req, res) => {
         });
         return;
     }
+    try {
+        // 비밀번호 해싱
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({ nickname, password });
-    await user.save();
+        const user = new User({ nickname, password: hashedPassword });
+        await user.save();
 
-    res.status(201).json({ status: "회원가입 성공!!" });
+        res.status(201).json({ status: "회원가입 성공!!" });
+    } catch (error) {
+        res.status(500).send('Error registering user');
+    }
 });
 
 // 내 정보 조회 API
