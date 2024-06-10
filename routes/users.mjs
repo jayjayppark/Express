@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import express from "express";
 import User from "../schemas/users.mjs";
 import authMiddleware from "../middlewares/auth-middleware.mjs";
+import config from "../config/index.mjs";
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(
         { userId: user._id }, // user.userId
-        "customized-secret-key",
+        config.secretKey,
     );
 
     res.cookie("Authorization", `Bearer ${token}`); // JWT를 Cookie로 할당합니다!
@@ -83,7 +84,7 @@ router.post("/register", async (req, res) => {
     const user = new User({ nickname, password });
     await user.save();
 
-    res.status(201).json({status: "회원가입 성공!!"});
+    res.status(201).json({ status: "회원가입 성공!!" });
 });
 
 // 내 정보 조회 API

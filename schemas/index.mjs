@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import config from "../config/index.mjs";
 
-mongoose.connect("mongodb://localhost:27017/spa_post", {
+mongoose.connect(config.mongoURI, {
 })
   .then(value => console.log("MongoDB 연결에 성공하였습니다."))
   .catch(reason => console.log("MongoDB 연결에 실패하였습니다."))

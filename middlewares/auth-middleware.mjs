@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../schemas/users.mjs";
+import config from "../config/index.mjs";
 
 // 사용자 인증 미들웨어
 export default async (req, res, next) => {
@@ -14,7 +15,7 @@ export default async (req, res, next) => {
   }
 
   try {
-    const { userId } = jwt.verify(authToken, "customized-secret-key");
+    const { userId } = jwt.verify(authToken, config.secretKey);
     const user = await User.findById(userId);
     res.locals.user = user; // 우리는 토큰에 담긴 `userId`로 해당 사용자가 실제로 존재하는지 확인했습니다.
     // 이미 데이터베이스에서 사용자 정보를 가져온것이죠.
