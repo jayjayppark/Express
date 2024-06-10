@@ -113,7 +113,7 @@
  *                 posts:
  *                   type: array
  *                   items:
- *                     $ref: '#/components/schemas/Post'
+ *                     $ref: '#/api/schemas/posts'
  *                 result:
  *                   type: string
  *                   example: success
@@ -146,7 +146,7 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Post'
+ *               $ref: '#/api/schemas/posts'
  *       400:
  *         description: Bad request
  *       502:
@@ -172,7 +172,7 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Post'
+ *               $ref: '#/api/schemas/posts'
  *       404:
  *         description: Post not found
  *       502:
@@ -211,7 +211,7 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Post'
+ *               $ref: '#/api/schemas/posts'
  *       400:
  *         description: Bad request
  *       404:
@@ -283,7 +283,7 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Comment'
+ *               $ref: '#/api/schemas/comments'
  *       400:
  *         description: Bad request
  *       502:
@@ -311,7 +311,7 @@
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Comment'
+ *                 $ref: '#/api/schemas/comments'
  *       503:
  *         description: Server error
  */
@@ -347,7 +347,7 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Comment'
+ *               $ref: '#/api/schemas/comments'
  *       400:
  *         description: Bad request
  *       404:
