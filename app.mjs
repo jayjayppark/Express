@@ -45,8 +45,8 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            // url: 'https://jungleptest.xyz',
-            url: 'http://localhost:3000',
+            url: 'https://jungleptest.xyz',
+            // url: 'http://localhost:3000',
             description: 'Development server',
         },
     ],
